@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 class Server {
   constructor() {
@@ -10,33 +11,16 @@ class Server {
 
   middlwares() {
     this.app.use(express.static("public"));
+
+    this.app.use(express.json()); //Lectura y parseop del BODY
+
+    this.app.use(cors());
   }
 
   routes() {
-    this.app.get("/api", (req, res) => {
-      res.json({
-        msg: "get",
-      });
-    });
-
-    this.app.put("/api", (req, res) => {
-      res.json({
-        msg: "put",
-      });
-    });
-
-    this.app.post("/api", (req, res) => {
-      res.json({
-        msg: "post",
-      });
-    });
-
-    this.app.delete("/api", (req, res) => {
-      res.json({
-        msg: "delete",
-      });
-    });
+    this.app.use('/api/usuarios', require('../routes/usuarios'));
   }
+ 
 
   listen() {
     this.app.listen(this.port, () => {
