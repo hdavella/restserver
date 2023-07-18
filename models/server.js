@@ -12,7 +12,7 @@ class Server {
   middlwares() {
     this.app.use(express.static("public"));
 
-    this.app.use(express.json()); //Lectura y parseop del BODY
+    this.app.use(express.json()); //Lectura y parseo del BODY
 
     this.app.use(cors());
   }
