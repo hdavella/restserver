@@ -6,12 +6,21 @@ const bcryptjs = require('bcryptjs');
 const ususariosGet = async (req, res = response) => {
 
     //const usuarios = await Usuario.find().limit(Number(req.params.cant));
-
+    const queryStatus = {status:true};
     const {limit=""} = req.query;
-    const usuarios = await Usuario.find().limit(Number(limit));    
+
+/*     const activeUsers = await Usuario.find(queryStatus).limit(Number(limit));
+    const countActiveUsers = await Usuario.count(queryStatus); */
+
+    const [totalActiveUsers, activeUsers] = await Promise.all([
+        Usuario.count(queryStatus),
+        Usuario.find(queryStatus)
+            .limit(Number(limit))
+    ]);
 
     res.json({
-        usuarios
+        totalActiveUsers,
+        activeUsers
     });
 }
 
@@ -52,9 +61,14 @@ const usuariosPatch = (req, res = response) => {
     });
 }
 
-const usuariosDelete = (req, res = response) => {
+const usuariosDelete = async (req, res = response) => {
+    const {id} = req.params;
+
+    const usuario = await Usuario.findByIdAndUpdate(id, {status:false});
+
     res.json({
         msg: "delete API - Controlador",
+        usuario
     });
 }
 
