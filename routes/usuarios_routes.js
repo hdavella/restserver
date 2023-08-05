@@ -4,7 +4,7 @@ const { Router } = require('express');
 const { ususariosGet, usuariosPost, usuariosPut, usuariosPatch, usuariosDelete } = require('../controllers/usuarios_controllers');
 const {check} = require('express-validator');
 const {validarCampos} = require('../middlewares/validar_campos');
-const { isValid, mailExist } = require('../helpers/dbvalidators');
+const { isValid, mailExist, existMongoId } = require('../helpers/dbvalidators');
 
 
 const router = Router();
@@ -20,7 +20,12 @@ router.post("/",     //check("rol", "El rol no es valido").isIn(["ADMIN_ROLE", "
     validarCampos,
 ],usuariosPost);
 
-router.put("/:id", usuariosPut);
+router.put("/:id", [
+    check("id", "No es un MongoID válido").isMongoId(),
+    check("id").custom(existMongoId),
+    check("rol").custom(isValid),
+    validarCampos
+],usuariosPut);
 
 router.patch("/", usuariosPatch);
 

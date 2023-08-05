@@ -15,4 +15,15 @@ const mailExist = async (email = "")=>{
         throw new Error (`El mail: ${email} ya existe`);
     }}
 
-module.exports = {isValid, mailExist};
+const existMongoId = async ( id = "" )=>{
+    const exist = await Usuario.findById(id);
+    if(!exist){
+        throw new Error (`El ID: ${id} no existe`);
+    }
+
+}
+
+module.exports = {isValid, 
+    mailExist,
+    existMongoId,
+};
