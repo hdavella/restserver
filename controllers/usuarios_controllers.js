@@ -3,10 +3,15 @@ const Usuario = require('../models/usuario');
 const bcryptjs = require('bcryptjs');
 
 
-const ususariosGet = (req, res = response) => {
-    const {q, id, nombre, list} = req.query;
+const ususariosGet = async (req, res = response) => {
+
+    //const usuarios = await Usuario.find().limit(Number(req.params.cant));
+
+    const {limit=""} = req.query;
+    const usuarios = await Usuario.find().limit(Number(limit));    
+
     res.json({
-        msg: "get API - Controlador"
+        usuarios
     });
 }
 

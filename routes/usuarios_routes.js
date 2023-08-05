@@ -9,7 +9,7 @@ const { isValid, mailExist, existMongoId } = require('../helpers/dbvalidators');
 
 const router = Router();
 
-router.get("/", ususariosGet );
+router.get("/:cant", ususariosGet );
 
 router.post("/",     //check("rol", "El rol no es valido").isIn(["ADMIN_ROLE", "USER_ROLE"]),
     [check("password", "El password debe tener mas de 6 caracteres").isLength({min:6}),
