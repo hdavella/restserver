@@ -1,12 +1,41 @@
 const {response} = require('express');
+const Usuario = require('../models/usuario');
+const bcryptjs = require('bcryptjs');
+const { jwtGenerate } = require('../helpers/jwt_generator');
 
-const login =  (req, res = response) => {
+const login =  async (req, res = response) => {
 
     const {password, email} = req.body;
 
     try {
+
+        const {email, password} = req.body;
+
+        const user = await Usuario.findOne({email});
+        if(!user){
+            return res.status(400).json({
+                msg: "User/Pass incorrectos"
+            });
+        }
+
+        if(!user.status){
+            return res.status(400).json({
+                msg: "User/Pass incorrectos"
+            });
+        }
+
+        const isMatchPass = bcryptjs.compareSync(password, user.password);
+        if(!isMatchPass){
+            return res.status(400).json({
+                msg: "User/Pass incorrectos"
+            });
+        }
+
+        const jsonWebToken = await jwtGenerate(user.id);
+
         res.json({
-            msg:"login ok"
+            user,
+            jsonWebToken
         })
         
     } catch (error) {
