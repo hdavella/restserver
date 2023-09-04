@@ -6,8 +6,7 @@ const jwtGenerate = ( uid = "")=> {
 
         const jwtPayload = {uid};
         jwt.sign(jwtPayload, process.env.SECRETORPRIVATEKEY, 
-            {expiresIn: '4h'}, 
-            (err, token) => {
+            {expiresIn: '4h'}, (err, token) => {
                 if(err){
                     console.log(err);
                     reject("No se pudo generar token");
