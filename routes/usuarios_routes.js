@@ -3,7 +3,10 @@
 const { Router } = require('express');
 const { ususariosGet, usuariosPost, usuariosPut, usuariosPatch, usuariosDelete } = require('../controllers/usuarios_controllers');
 const {check} = require('express-validator');
+
 const {validarCampos} = require('../middlewares/validar_campos');
+const { validarJwt } = require('../middlewares/validar_jwt');
+
 const { isValid, mailExist, existMongoId } = require('../helpers/dbvalidators');
 
 
@@ -30,6 +33,7 @@ router.put("/:id", [
 router.patch("/", usuariosPatch);
 
 router.delete("/:id", [
+    validarJwt,
     check("id", "No es un MongoID válido").isMongoId(),
     check("id").custom(existMongoId),
     validarCampos
