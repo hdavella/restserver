@@ -19,6 +19,12 @@ const validarJwt = async (req = request, res = response, next) => {
         const {uid} = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
 
         const userAuthenticated = await Usuario.findById(uid);
+
+        if(  !userAuthenticated || !userAuthenticated.status){
+            return res.status(401).json({
+                msg: "invalid operation"
+            });
+        };
         req.userAuthenticated = userAuthenticated;
 
         console.log(uid);

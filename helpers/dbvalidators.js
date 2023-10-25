@@ -23,7 +23,16 @@ const existMongoId = async ( id = "" )=>{
 
 }
 
+const userDeleted = async ( id = "" )=>{
+    const deleted = await Usuario.findById(id);
+    if(!deleted.status){
+        throw new Error (`El ID: ${id} ya no existe`);
+    }
+
+}
+
 module.exports = {isValid, 
     mailExist,
     existMongoId,
+    userDeleted
 };
