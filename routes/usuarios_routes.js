@@ -40,6 +40,4 @@ router.delete("/:id", [
     validarCampos
 ], usuariosDelete);
 
-
-
 module.exports = router;

@@ -41,10 +41,24 @@ const login =  async (req, res = response) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            msg:"Error, hable con el administrador"
+            msg:"Error, hable con el administrador(0xA)"
         });
         
     }
 }
 
-module.exports = login;
+const googleSignIn = async (req, res = response) =>{
+
+    const {id_token} = req.body;
+
+    res.json({
+        msg:"ok",
+        id_token
+    });
+
+}
+
+module.exports = {
+    login,
+    googleSignIn
+};
