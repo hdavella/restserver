@@ -14,7 +14,11 @@ router.get("/:id", (req, res) => {
     res.json("GET - Categorias por ID");
 } );
 
-router.post("/", [ validarJwt ], categoriaCrearPost
+router.post("/", [ 
+    validarJwt,
+    check('name', 'El nombre es obligatorio').not().isEmpty(),
+    validarCampos
+ ], categoriaCrearPost
  );
 
  router.put("/:id", (req, res) => {

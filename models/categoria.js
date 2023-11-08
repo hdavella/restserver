@@ -4,19 +4,20 @@ const usuario = require('./usuario');
 
 const CategoriaSchema = Schema({
 
-    categoria:{
+    name:{
         type: String,
-        required: [true, "Debe contener una categoria válida"]
+        required: [true, "Debe contener un nombre"],
+        unique: true
     },
     status:{
         type: Boolean,
         default: true,
         required: true
     },
-    usuario:{
+    user:{
         type: Schema.Types.ObjectId,
-        ref: Usuario,
-        require: true
+        ref: 'Usuario',
+        required: true
     }
 });
 

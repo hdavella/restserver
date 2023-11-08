@@ -28,7 +28,7 @@ const validarJwt = async (req = request, res = response, next) => {
         req.userAuthenticated = userAuthenticated;
 
         console.log(uid);
-        req.uid = uid;
+        //req.uid = uid;
         
         next();
 
