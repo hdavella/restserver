@@ -1,7 +1,7 @@
 const {response} = require('express');
 const Categoria = require('../models/categoria')
 
-const categoriaCrearPost = async (req, res = response) => {
+const categoriCreate = async (req, res = response) => {
 
     const name = req.body.name.toUpperCase();
 
@@ -27,5 +27,5 @@ const categoriaCrearPost = async (req, res = response) => {
 }
 
 module.exports = {
-    categoriaCrearPost
+    categoriCreate
 }

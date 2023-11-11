@@ -18,7 +18,7 @@ router.post("/", [
     validarJwt,
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     validarCampos
- ], categoriaCrearPost
+ ], categoriCreate
  );
 
  router.put("/:id", (req, res) => {
