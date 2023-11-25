@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const {check} = require('express-validator');
 const {validarCampos} = require('../middlewares/validar_campos');
-const { categoriaCrearPost } = require('../controllers/categorias_controllers');
+const { categoriCreate } = require('../controllers/categorias_controllers');
 const { validarJwt } = require('../middlewares/validar_jwt');
 
 const router = Router();
