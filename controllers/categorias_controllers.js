@@ -1,6 +1,23 @@
 const {response} = require('express');
 const Categoria = require('../models/categoria')
 
+const categoriGet = async (req, res = response) =>{
+    
+    const queryStatus = {status:true};
+    const {limit=""} = req.query;
+
+    const [totalActiveCategori, activeCategori] = await Promise.all([
+        Categoria.count(queryStatus),
+        Categoria.find(queryStatus)
+            .limit(Number(limit))
+    ]);
+
+    res.json({
+        totalActiveCategori,
+        activeCategori
+    });
+};
+
 const categoriCreate = async (req, res = response) => {
 
     const name = req.body.name.toUpperCase();
@@ -27,5 +44,6 @@ const categoriCreate = async (req, res = response) => {
 }
 
 module.exports = {
-    categoriCreate
+    categoriCreate,
+    categoriGet,
 }
